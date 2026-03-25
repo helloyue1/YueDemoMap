@@ -1,0 +1,169 @@
+@startuml 类图
+
+skinparam backgroundColor #FEFEFE
+
+title 养老院公寓管理系统 - 核心类图
+
+package "Controller层" {
+    class HealthRecordController {
+        - healthRecordService: HealthRecordService
+        - userService: UserService
+        + getAllHealthRecords(): Result<List<HealthRecord>>
+        + getHealthRecordList(): Result<Page<HealthRecord>>
+        + createHealthRecord(record): Result<HealthRecord>
+        + updateHealthRecord(id, record): Result<HealthRecord>
+        + deleteHealthRecord(id): Result<Void>
+    }
+    
+    class UserController {
+        - userService: UserService
+        + getUserList(): Result<Page<User>>
+        + createUser(user): Result<User>
+        + updateUser(id, user): Result<User>
+        + deleteUser(id): Result<Void>
+    }
+    
+    class FeeController {
+        - feeBillService: FeeBillService
+        - feePaymentService: FeePaymentService
+        + getBillList(): Result<Page<FeeBill>>
+        + createBill(bill): Result<FeeBill>
+        + payBill(payment): Result<FeePayment>
+    }
+}
+
+package "Service层" {
+    interface HealthRecordService {
+        + save(record): boolean
+        + updateById(record): boolean
+        + getById(id): HealthRecord
+        + list(wrapper): List<HealthRecord>
+    }
+    
+    class HealthRecordServiceImpl {
+        - healthRecordMapper: HealthRecordMapper
+        + save(record): boolean
+        + updateById(record): boolean
+        + getById(id): HealthRecord
+        + list(wrapper): List<HealthRecord>
+    }
+    
+    interface UserService {
+        + save(user): boolean
+        + updateById(user): boolean
+        + getById(id): User
+    }
+    
+    class UserServiceImpl {
+        - userMapper: UserMapper
+        + save(user): boolean
+        + updateById(user): boolean
+        + getById(id): User
+    }
+}
+
+package "Mapper层" {
+    interface HealthRecordMapper {
+        + insert(record): int
+        + updateById(record): int
+        + selectById(id): HealthRecord
+        + selectList(wrapper): List<HealthRecord>
+    }
+    
+    interface UserMapper {
+        + insert(user): int
+        + updateById(user): int
+        + selectById(id): User
+    }
+}
+
+package "Entity层" {
+    class HealthRecord {
+        - id: Integer
+        - elderlyId: Integer
+        - systolicPressure: Integer
+        - diastolicPressure: Integer
+        - bloodSugar: Double
+        - heartRate: Integer
+        - temperature: Double
+        - weight: Double
+        - height: Double
+        - bloodOxygen: Integer
+        - healthStatus: Integer
+        - medicalHistory: String
+        - allergyHistory: String
+        - medication: String
+        - diagnosis: String
+        - checkDate: LocalDate
+        - doctor: String
+        - notes: String
+        - createTime: LocalDateTime
+        - updateTime: LocalDateTime
+        - deleted: Integer
+    }
+    
+    class User {
+        - id: Integer
+        - username: String
+        - password: String
+        - realName: String
+        - phone: String
+        - email: String
+        - userType: Integer
+        - roomId: Integer
+        - healthStatus: String
+        - balance: BigDecimal
+        - createTime: LocalDateTime
+        - updateTime: LocalDateTime
+        - deleted: Integer
+    }
+    
+    class FeeBill {
+        - id: Integer
+        - elderlyId: Integer
+        - billNo: String
+        - totalAmount: BigDecimal
+        - paidAmount: BigDecimal
+        - status: Integer
+        - dueDate: LocalDate
+        - createTime: LocalDateTime
+    }
+}
+
+package "DTO层" {
+    class HealthRecordDTO {
+        + id: Integer
+        + elderlyName: String
+        + roomNumber: String
+        + systolicPressure: Integer
+        + diastolicPressure: Integer
+        + healthStatusText: String
+    }
+    
+    class ElderlyDTO {
+        + id: Integer
+        + realName: String
+        + roomNumber: String
+        + healthStatus: String
+        + balance: BigDecimal
+    }
+}
+
+' 关系
+HealthRecordController --> HealthRecordService
+UserController --> UserService
+FeeController --> FeeBillService
+
+HealthRecordService <|.. HealthRecordServiceImpl
+UserService <|.. UserServiceImpl
+
+HealthRecordServiceImpl --> HealthRecordMapper
+UserServiceImpl --> UserMapper
+
+HealthRecordMapper --> HealthRecord
+UserMapper --> User
+
+HealthRecordController ..> HealthRecordDTO
+HealthRecordController ..> User
+
+@enduml

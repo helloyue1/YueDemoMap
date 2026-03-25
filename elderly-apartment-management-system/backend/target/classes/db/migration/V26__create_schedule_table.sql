@@ -1,0 +1,26 @@
+-- 创建日程表
+CREATE TABLE IF NOT EXISTS schedule (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '日程ID',
+    elderly_id BIGINT NOT NULL COMMENT '老人ID',
+    title VARCHAR(100) NOT NULL COMMENT '日程标题',
+    schedule_date DATE NOT NULL COMMENT '日程日期',
+    start_time TIME NOT NULL COMMENT '开始时间',
+    end_time TIME NOT NULL COMMENT '结束时间',
+    location VARCHAR(200) COMMENT '地点',
+    color VARCHAR(20) DEFAULT '#FF6B35' COMMENT '颜色标识',
+    description TEXT COMMENT '日程描述',
+    type TINYINT DEFAULT 1 COMMENT '日程类型：1-个人日程，2-活动，3-护理，4-用餐',
+    source_id BIGINT COMMENT '关联来源ID（如活动ID、护理预约ID等）',
+    remind_minutes INT DEFAULT 15 COMMENT '提前提醒分钟数',
+    is_repeated TINYINT DEFAULT 0 COMMENT '是否重复：0-否，1-是',
+    repeat_type VARCHAR(20) COMMENT '重复类型：daily-每天，weekly-每周，monthly-每月',
+    repeat_end_date DATE COMMENT '重复结束日期',
+    status TINYINT DEFAULT 1 COMMENT '状态：0-已取消，1-正常，2-已完成',
+    create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time TIMESTAMP NOT NULL DEFAULT '1970-01-01 00:00:01' COMMENT '更新时间',
+    deleted TINYINT DEFAULT 0 COMMENT '是否删除：0-否，1-是',
+    INDEX idx_elderly_date (elderly_id, schedule_date),
+    INDEX idx_date (schedule_date),
+    INDEX idx_type (type),
+    INDEX idx_status (status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='老人日程表';

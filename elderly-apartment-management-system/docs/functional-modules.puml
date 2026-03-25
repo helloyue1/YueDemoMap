@@ -1,0 +1,86 @@
+@startuml 功能模块图
+
+!define RECTANGLE class
+
+skinparam backgroundColor #FEFEFE
+skinparam rectangle {
+    BackgroundColor<<核心模块>> #E3F2FD
+    BackgroundColor<<管理模块>> #E8F5E9
+    BackgroundColor<<服务模块>> #FFF3E0
+    BackgroundColor<<用户模块>> #F3E5F5
+}
+
+title 养老院公寓管理系统 - 功能模块图
+
+rectangle "养老院公寓管理系统" as System {
+    
+    rectangle "住客管理模块" as Resident <<核心模块>> {
+        :住客信息管理;
+        :入住/退住管理;
+        :房间分配;
+        :家属信息管理;
+    }
+    
+    rectangle "健康管理模块" as Health <<核心模块>> {
+        :健康档案管理;
+        :日常健康监测;
+        :体检报告管理;
+        :健康数据分析;
+    }
+    
+    rectangle "费用管理模块" as Fee <<管理模块>> {
+        :费用类型设置;
+        :账单生成;
+        :缴费管理;
+        :费用统计;
+    }
+    
+    rectangle "餐饮管理模块" as Meal <<服务模块>> {
+        :菜品管理;
+        :菜单规划;
+        :订餐服务;
+        :营养分析;
+    }
+    
+    rectangle "活动管理模块" as Activity <<服务模块>> {
+        :活动发布;
+        :活动报名;
+        :活动签到;
+        :活动反馈;
+    }
+    
+    rectangle "护理管理模块" as Care <<服务模块>> {
+        :护理预约;
+        :护理记录;
+        :护工排班;
+        :护理评估;
+    }
+    
+    rectangle "房间服务模块" as RoomService <<服务模块>> {
+        :保洁服务;
+        :维修服务;
+        :服务评价;
+    }
+    
+    rectangle "系统管理模块" as SystemManage <<管理模块>> {
+        :用户管理;
+        :角色管理;
+        :菜单管理;
+        :系统配置;
+    }
+    
+    rectangle "公告管理模块" as Announce <<管理模块>> {
+        :公告发布;
+        :公告分类;
+        :阅读统计;
+    }
+    
+    rectangle "个人中心模块" as Profile <<用户模块>> {
+        :个人信息;
+        :账户余额;
+        :消费记录;
+        :消息通知;
+    }
+}
+
+@enduml

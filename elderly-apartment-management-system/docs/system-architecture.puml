@@ -1,0 +1,39 @@
+@startuml 系统架构图
+
+!define RECTANGLE class
+
+skinparam backgroundColor #FEFEFE
+skinparam componentStyle rectangle
+
+title 养老院公寓管理系统 - 系统架构图
+
+package "前端层" {
+    [管理端Web界面\nVue3 + Element Plus] as AdminWeb
+    [APP移动端\nUniApp] as MobileApp
+}
+
+package "网关层" {
+    [Nginx\n反向代理] as Nginx
+}
+
+package "应用层" {
+    [Spring Boot\n后端服务] as SpringBoot
+}
+
+package "数据层" {
+    [MySQL\n主数据库] as MySQL
+    [Redis\n缓存] as Redis
+}
+
+package "文件存储" {
+    [本地文件系统\n图片/文档] as FileSystem
+}
+
+AdminWeb --> Nginx : HTTP/HTTPS
+MobileApp --> Nginx : HTTP/HTTPS
+Nginx --> SpringBoot : 转发请求
+SpringBoot --> MySQL : JDBC
+SpringBoot --> Redis : Jedis
+SpringBoot --> FileSystem : IO
+
+@enduml

@@ -1,0 +1,1 @@
+import{D as r}from"./index-D9VfDkIB.js";function u(e){return r.get("/user",{params:e})}function n(e){return r.post("/user",e)}function o(e,t){return r.put(`/user/${e}`,t)}function a(e){return r.delete(`/user/${e}`)}export{n as c,a as d,u as g,o as u};

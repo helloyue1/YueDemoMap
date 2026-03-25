@@ -1,0 +1,81 @@
+# 服务器配置
+server:
+  port: 8080
+  address: 0.0.0.0
+
+# 数据库配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/elderly_apartment_management?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  
+  main:
+    allow-circular-references: true
+  
+  # JPA配置
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  
+  # 文件上传配置
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  # 静态资源映射
+  web:
+    resources:
+      static-locations: classpath:/static/,file:${upload.path}/
+
+# MyBatis-Plus配置
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: com.elderly.apartment.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# JWT配置
+jwt:
+  secret: elderly-apartment-management-system-secret-key
+  expiration: 86400000  # 1天
+  token-header: Authorization
+  token-prefix: Bearer
+  public-paths: /auth/login,/auth/register,/uploads
+
+# 文件上传配置
+upload:
+  # 上传文件存储路径（绝对路径或相对路径）
+  path: ./uploads
+  # 访问URL前缀
+  url-prefix: /uploads
+  # 允许的图片类型
+  allowed-types: image/jpeg,image/png,image/gif,image/webp
+  # 最大文件大小（MB）
+  max-size: 5
+  # 各模块子目录
+  room-dir: rooms
+  elderly-dir: elderly
+  avatar-dir: avatars
+  activity-dir: activities
+
+# 日志配置
+logging:
+  level:
+    com.elderly.apartment: debug
+    org.springframework.security: info

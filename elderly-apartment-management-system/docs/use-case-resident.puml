@@ -1,0 +1,100 @@
+@startuml 图3-1住客用例图
+
+skinparam backgroundColor #FEFEFE
+skinparam usecase {
+    BackgroundColor<<核心业务>> #E3F2FD
+    BorderColor<<核心业务>> #1976D2
+}
+
+title 图 3-1 住客用例图
+
+left to right direction
+
+actor "住客" as Resident
+
+rectangle "养老院公寓管理系统" {
+    
+    package "个人信息管理" {
+        usecase (UC01\n查看个人信息) as UC1
+        usecase (UC02\n修改个人信息) as UC2
+        usecase (UC03\n修改密码) as UC3
+    }
+    
+    package "健康管理" {
+        usecase (UC04\n查看健康档案) as UC4 <<核心业务>>
+        usecase (UC05\n查看体检报告) as UC5
+        usecase (UC06\n查看健康趋势) as UC6
+    }
+    
+    package "费用管理" {
+        usecase (UC07\n查看账户余额) as UC7
+        usecase (UC08\n查看账单) as UC8
+        usecase (UC09\n在线缴费) as UC9 <<核心业务>>
+        usecase (UC10\n账户充值) as UC10
+        usecase (UC11\n查看消费记录) as UC11
+    }
+    
+    package "餐饮服务" {
+        usecase (UC12\n浏览菜单) as UC12
+        usecase (UC13\n在线订餐) as UC13 <<核心业务>>
+        usecase (UC14\n查看订单) as UC14
+        usecase (UC15\n取消订单) as UC15
+    }
+    
+    package "活动参与" {
+        usecase (UC16\n浏览活动) as UC16
+        usecase (UC17\n报名活动) as UC17
+        usecase (UC18\n活动签到) as UC18
+        usecase (UC19\n活动评价) as UC19
+    }
+    
+    package "护理服务" {
+        usecase (UC20\n预约护理) as UC20 <<核心业务>>
+        usecase (UC21\n查看护理记录) as UC21
+        usecase (UC22\n呼叫护工) as UC22
+        usecase (UC23\n取消预约) as UC23
+    }
+    
+    package "房间服务" {
+        usecase (UC24\n申请保洁服务) as UC24
+        usecase (UC25\n申请维修服务) as UC25
+        usecase (UC26\n服务评价) as UC26
+    }
+    
+    package "公告信息" {
+        usecase (UC27\n查看公告) as UC27
+        usecase (UC28\n查看轮播图) as UC28
+    }
+}
+
+' 住客用例关联
+Resident --> UC1
+Resident --> UC2
+Resident --> UC3
+Resident --> UC4
+Resident --> UC5
+Resident --> UC6
+Resident --> UC7
+Resident --> UC8
+Resident --> UC9
+Resident --> UC10
+Resident --> UC11
+Resident --> UC12
+Resident --> UC13
+Resident --> UC14
+Resident --> UC15
+Resident --> UC16
+Resident --> UC17
+Resident --> UC18
+Resident --> UC19
+Resident --> UC20
+Resident --> UC21
+Resident --> UC22
+Resident --> UC23
+Resident --> UC24
+Resident --> UC25
+Resident --> UC26
+Resident --> UC27
+Resident --> UC28
+
+@enduml

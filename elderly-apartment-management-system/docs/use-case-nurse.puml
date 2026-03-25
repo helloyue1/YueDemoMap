@@ -1,0 +1,69 @@
+@startuml 图3-3护工用例图
+
+skinparam backgroundColor #FEFEFE
+skinparam usecase {
+    BackgroundColor<<核心业务>> #E3F2FD
+    BorderColor<<核心业务>> #1976D2
+}
+
+title 图 3-3 护工用例图
+
+left to right direction
+
+actor "护工" as Nurse
+
+rectangle "养老院公寓管理系统" {
+    
+    package "个人信息" {
+        usecase (UC01\n查看个人信息) as UC1
+        usecase (UC02\n修改个人信息) as UC2
+        usecase (UC03\n查看排班) as UC3
+    }
+    
+    package "健康服务" {
+        usecase (UC04\n记录健康数据) as UC4 <<核心业务>>
+        usecase (UC05\n查看健康档案) as UC5
+        usecase (UC06\n健康异常上报) as UC6
+        usecase (UC07\n健康趋势分析) as UC7
+    }
+    
+    package "护理服务" {
+        usecase (UC08\n查看护理预约) as UC8
+        usecase (UC09\n护理服务记录) as UC9 <<核心业务>>
+        usecase (UC10\n护理完成确认) as UC10
+        usecase (UC11\n护理评价查看) as UC11
+    }
+    
+    package "呼叫响应" {
+        usecase (UC12\n接收呼叫请求) as UC12
+        usecase (UC13\n响应呼叫) as UC13 <<核心业务>>
+        usecase (UC14\n呼叫处理记录) as UC14
+    }
+    
+    package "住客关怀" {
+        usecase (UC15\n查看住客列表) as UC15
+        usecase (UC16\n住客状态更新) as UC16
+        usecase (UC17\n特殊情况记录) as UC17
+    }
+}
+
+' 护工用例关联
+Nurse --> UC1
+Nurse --> UC2
+Nurse --> UC3
+Nurse --> UC4
+Nurse --> UC5
+Nurse --> UC6
+Nurse --> UC7
+Nurse --> UC8
+Nurse --> UC9
+Nurse --> UC10
+Nurse --> UC11
+Nurse --> UC12
+Nurse --> UC13
+Nurse --> UC14
+Nurse --> UC15
+Nurse --> UC16
+Nurse --> UC17
+
+@enduml

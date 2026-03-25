@@ -1,0 +1,88 @@
+@startuml 时序图
+
+skinparam backgroundColor #FEFEFE
+
+title 健康数据录入 - 时序图
+
+actor "护工/护士" as Nurse
+participant "APP前端" as App
+participant "后端Controller" as Controller
+participant "后端Service" as Service
+participant "后端Mapper" as Mapper
+database "MySQL数据库" as DB
+
+Nurse -> App : 1. 选择住客
+activate App
+
+App -> Controller : 2. GET /user/elderly/{id}
+activate Controller
+
+Controller -> Service : 查询住客详情
+activate Service
+
+Service -> Mapper : selectById
+activate Mapper
+
+Mapper -> DB : SQL查询
+activate DB
+
+DB --> Mapper : 返回住客信息
+
+deactivate DB
+
+Mapper --> Service : 返回实体对象
+
+deactivate Mapper
+
+Service --> Controller : 返回DTO
+
+deactivate Service
+
+Controller --> App : 返回JSON数据
+
+deactivate Controller
+
+App --> Nurse : 显示住客信息
+
+deactivate App
+
+Nurse -> App : 3. 录入健康数据
+activate App
+
+App -> App : 4. 数据校验
+
+App -> Controller : 5. POST /api/health-record
+activate Controller
+
+Controller -> Controller : 6. 参数校验
+
+Controller -> Service : 7. save(record)
+activate Service
+
+Service -> Mapper : 8. insert
+activate Mapper
+
+Mapper -> DB : 9. INSERT SQL
+activate DB
+
+DB --> Mapper : 10. 返回影响行数
+
+deactivate DB
+
+Mapper --> Service : 11. 返回结果
+
+deactivate Mapper
+
+Service --> Controller : 12. 返回保存结果
+
+deactivate Service
+
+Controller --> App : 13. 返回成功响应
+
+deactivate Controller
+
+App --> Nurse : 14. 显示保存成功
+
+deactivate App
+
+@enduml

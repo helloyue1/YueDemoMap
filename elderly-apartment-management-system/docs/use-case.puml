@@ -1,0 +1,119 @@
+@startuml 用例图
+
+skinparam backgroundColor #FEFEFE
+skinparam usecase {
+    BackgroundColor<<核心用例>> #E3F2FD
+    BorderColor<<核心用例>> #1976D2
+}
+
+title 养老院公寓管理系统 - 用例图
+
+left to right direction
+
+actor "住客" as Resident
+actor "护工" as Nurse
+actor "管理员" as Admin
+actor "家属" as Family
+
+rectangle "养老院公寓管理系统" {
+    
+    package "住客管理" {
+        usecase "查看个人信息" as UC1
+        usecase "修改个人信息" as UC2
+        usecase "查看账户余额" as UC3
+        usecase "查看消费记录" as UC4
+    }
+    
+    package "健康管理" {
+        usecase "查看健康档案" as UC5 <<核心用例>>
+        usecase "记录健康数据" as UC6 <<核心用例>>
+        usecase "查看体检报告" as UC7
+        usecase "健康预警" as UC8
+    }
+    
+    package "费用管理" {
+        usecase "查看账单" as UC9
+        usecase "在线缴费" as UC10
+        usecase "充值/提现" as UC11
+    }
+    
+    package "餐饮服务" {
+        usecase "浏览菜单" as UC12
+        usecase "在线订餐" as UC13
+        usecase "查看订单" as UC14
+    }
+    
+    package "活动参与" {
+        usecase "浏览活动" as UC15
+        usecase "报名活动" as UC16
+        usecase "活动签到" as UC17
+    }
+    
+    package "护理服务" {
+        usecase "预约护理" as UC18
+        usecase "查看护理记录" as UC19
+        usecase "呼叫护工" as UC20
+    }
+    
+    package "房间服务" {
+        usecase "申请保洁" as UC21
+        usecase "申请维修" as UC22
+        usecase "服务评价" as UC23
+    }
+    
+    package "管理功能" {
+        usecase "住客信息管理" as UC24 <<核心用例>>
+        usecase "房间管理" as UC25
+        usecase "费用管理" as UC26
+        usecase "健康档案管理" as UC27 <<核心用例>>
+        usecase "活动管理" as UC28
+        usecase "护理排班" as UC29
+        usecase "数据统计" as UC30
+        usecase "系统配置" as UC31
+    }
+}
+
+' 住客用例
+Resident --> UC1
+Resident --> UC3
+Resident --> UC4
+Resident --> UC5
+Resident --> UC7
+Resident --> UC9
+Resident --> UC10
+Resident --> UC11
+Resident --> UC12
+Resident --> UC13
+Resident --> UC14
+Resident --> UC15
+Resident --> UC16
+Resident --> UC17
+Resident --> UC18
+Resident --> UC19
+Resident --> UC20
+Resident --> UC21
+Resident --> UC22
+Resident --> UC23
+
+' 护工用例
+Nurse --> UC6
+Nurse --> UC19
+Nurse --> UC20
+Nurse --> UC29
+
+' 家属用例
+Family --> UC5
+Family --> UC7
+Family --> UC9
+
+' 管理员用例
+Admin --> UC24
+Admin --> UC25
+Admin --> UC26
+Admin --> UC27
+Admin --> UC28
+Admin --> UC29
+Admin --> UC30
+Admin --> UC31
+
+@enduml

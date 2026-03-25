@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.elderly.apartment.mapper.MealOrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.elderly.apartment.entity.MealOrder">
+        <id column="id" property="id"/>
+        <result column="elderly_id" property="elderlyId"/>
+        <result column="order_date" property="orderDate"/>
+        <result column="meal_type" property="mealType"/>
+        <result column="menu_items" property="menuItems"/>
+        <result column="special_requirements" property="specialRequirements"/>
+        <result column="status" property="status"/>
+        <result column="delivery_time" property="deliveryTime"/>
+        <result column="payment_method" property="paymentMethod"/>
+        <result column="payment_time" property="paymentTime"/>
+        <result column="total_price" property="totalPrice"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="elderly_name" property="elderlyName"/>
+        <result column="real_name" property="realName"/>
+        <result column="room_number" property="roomNumber"/>
+    </resultMap>
+
+    <select id="selectOrderList" resultMap="BaseResultMap">
+        SELECT mo.*, u.real_name as elderly_name, u.real_name, u.room_number
+        FROM meal_order mo
+        LEFT JOIN user u ON mo.elderly_id = u.id
+        <where>
+            <if test="elderlyId != null">
+                AND mo.elderly_id = #{elderlyId}
+            </if>
+            <if test="elderlyName != null and elderlyName != ''">
+                AND u.real_name LIKE CONCAT('%', #{elderlyName}, '%')
+            </if>
+            <if test="roomNumber != null and roomNumber != ''">
+                AND u.room_number LIKE CONCAT('%', #{roomNumber}, '%')
+            </if>
+            <if test="orderDate != null and orderDate != ''">
+                AND mo.order_date = #{orderDate}
+            </if>
+            <if test="mealType != null">
+                AND mo.meal_type = #{mealType}
+            </if>
+            <if test="status != null">
+                AND mo.status = #{status}
+            </if>
+        </where>
+        ORDER BY mo.order_date DESC, mo.meal_type ASC, mo.create_time DESC
+    </select>
+
+</mapper>

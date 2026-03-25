@@ -1,0 +1,4 @@
+-- 添加用户资料相关字段到 user 表
+ALTER TABLE user ADD COLUMN nickname VARCHAR(50) NULL;
+ALTER TABLE user ADD COLUMN avatar VARCHAR(500) NULL;
+ALTER TABLE user ADD COLUMN bio TEXT NULL;

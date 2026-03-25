@@ -1,0 +1,134 @@
+@startuml 图3-2管理员用例图
+
+skinparam backgroundColor #FEFEFE
+skinparam usecase {
+    BackgroundColor<<核心业务>> #E3F2FD
+    BorderColor<<核心业务>> #1976D2
+}
+
+title 图 3-2 管理员用例图
+
+left to right direction
+
+actor "管理员" as Admin
+
+rectangle "养老院公寓管理系统" {
+    
+    package "住客管理" {
+        usecase (UC01\n住客信息录入) as UC1 <<核心业务>>
+        usecase (UC02\n住客信息查询) as UC2
+        usecase (UC03\n住客信息修改) as UC3
+        usecase (UC04\n住客退住办理) as UC4
+        usecase (UC05\n房间分配) as UC5 <<核心业务>>
+        usecase (UC06\n家属信息管理) as UC6
+    }
+    
+    package "房间管理" {
+        usecase (UC07\n房间信息维护) as UC7
+        usecase (UC08\n房间状态查看) as UC8
+        usecase (UC09\n房间费用设置) as UC9
+    }
+    
+    package "健康管理" {
+        usecase (UC10\n健康档案管理) as UC10 <<核心业务>>
+        usecase (UC11\n体检报告管理) as UC11
+        usecase (UC12\n健康预警查看) as UC12
+        usecase (UC13\n健康数据分析) as UC13
+    }
+    
+    package "费用管理" {
+        usecase (UC14\n费用类型设置) as UC14
+        usecase (UC15\n费用标准设置) as UC15
+        usecase (UC16\n账单生成) as UC16 <<核心业务>>
+        usecase (UC17\n账单查询) as UC17
+        usecase (UC18\n缴费记录查询) as UC18
+        usecase (UC19\n退费处理) as UC19
+    }
+    
+    package "餐饮服务" {
+        usecase (UC20\n菜品管理) as UC20
+        usecase (UC21\n菜单规划) as UC21
+        usecase (UC22\n订单管理) as UC22
+    }
+    
+    package "活动管理" {
+        usecase (UC23\n活动发布) as UC23
+        usecase (UC24\n活动审核) as UC24
+        usecase (UC25\n报名管理) as UC25
+        usecase (UC26\n活动统计) as UC26
+    }
+    
+    package "护理管理" {
+        usecase (UC27\n护工信息管理) as UC27
+        usecase (UC28\n护理排班) as UC28 <<核心业务>>
+        usecase (UC29\n护理记录查看) as UC29
+        usecase (UC30\n护理服务设置) as UC30
+    }
+    
+    package "公告管理" {
+        usecase (UC31\n公告发布) as UC31
+        usecase (UC32\n公告编辑) as UC32
+        usecase (UC33\n公告删除) as UC33
+        usecase (UC34\n轮播图管理) as UC34
+    }
+    
+    package "数据统计" {
+        usecase (UC35\n入住率统计) as UC35
+        usecase (UC36\n费用收入统计) as UC36 <<核心业务>>
+        usecase (UC37\n服务使用统计) as UC37
+        usecase (UC38\n运营报表生成) as UC38
+    }
+    
+    package "系统管理" {
+        usecase (UC39\n用户管理) as UC39
+        usecase (UC40\n角色管理) as UC40
+        usecase (UC41\n菜单管理) as UC41
+        usecase (UC42\n系统参数配置) as UC42
+    }
+}
+
+' 管理员用例关联
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+Admin --> UC5
+Admin --> UC6
+Admin --> UC7
+Admin --> UC8
+Admin --> UC9
+Admin --> UC10
+Admin --> UC11
+Admin --> UC12
+Admin --> UC13
+Admin --> UC14
+Admin --> UC15
+Admin --> UC16
+Admin --> UC17
+Admin --> UC18
+Admin --> UC19
+Admin --> UC20
+Admin --> UC21
+Admin --> UC22
+Admin --> UC23
+Admin --> UC24
+Admin --> UC25
+Admin --> UC26
+Admin --> UC27
+Admin --> UC28
+Admin --> UC29
+Admin --> UC30
+Admin --> UC31
+Admin --> UC32
+Admin --> UC33
+Admin --> UC34
+Admin --> UC35
+Admin --> UC36
+Admin --> UC37
+Admin --> UC38
+Admin --> UC39
+Admin --> UC40
+Admin --> UC41
+Admin --> UC42
+
+@enduml

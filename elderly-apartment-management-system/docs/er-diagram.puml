@@ -1,0 +1,342 @@
+@startuml 养老院管理系统ER图
+
+!define table(x) class x << (T,#FFAAAA) >>
+!define primary_key(x) <b><color:#FF0000>x</color></b>
+!define foreign_key(x) <color:#0000FF>x</color>
+!define unique(x) <u>x</u>
+
+skinparam class {
+    BackgroundColor White
+    ArrowColor Black
+    BorderColor Black
+}
+
+title 养老院公寓管理系统 - 数据库ER图
+
+' 用户相关表
+table(user) {
+    primary_key(id): INT
+    username: VARCHAR(50)
+    password: VARCHAR(100)
+    real_name: VARCHAR(50)
+    nickname: VARCHAR(50)
+    avatar: VARCHAR(255)
+    phone: VARCHAR(20)
+    email: VARCHAR(100)
+    status: INT
+    user_type: INT
+    gender: INT
+    age: INT
+    birthday: DATE
+    nationality: VARCHAR(20)
+    id_card: VARCHAR(18)
+    address: VARCHAR(255)
+    health_status: VARCHAR(20)
+    emergency_contact: VARCHAR(50)
+    emergency_phone: VARCHAR(20)
+    foreign_key(room_id): INT
+    room_number: VARCHAR(20)
+    check_in_date: DATE
+    balance: DECIMAL(10,2)
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+table(user_role) {
+    primary_key(id): INT
+    foreign_key(user_id): INT
+    foreign_key(role_id): INT
+}
+
+table(role) {
+    primary_key(id): INT
+    role_name: VARCHAR(50)
+    role_code: VARCHAR(50)
+    description: VARCHAR(255)
+    status: INT
+    create_time: DATETIME
+    update_time: DATETIME
+}
+
+' 房间相关表
+table(room) {
+    primary_key(id): INT
+    room_number: VARCHAR(20)
+    room_type: VARCHAR(20)
+    floor: INT
+    area: DECIMAL(10,2)
+    max_occupancy: INT
+    current_occupancy: INT
+    price: DECIMAL(10,2)
+    facilities: VARCHAR(500)
+    status: INT
+    cover_image: VARCHAR(255)
+    images: TEXT
+    description: TEXT
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+' 健康档案相关表
+table(health_record) {
+    primary_key(id): INT
+    foreign_key(elderly_id): INT
+    systolic_pressure: INT
+    diastolic_pressure: INT
+    blood_sugar: DECIMAL(4,2)
+    heart_rate: INT
+    temperature: DECIMAL(4,2)
+    weight: DECIMAL(5,2)
+    height: DECIMAL(5,2)
+    blood_oxygen: INT
+    health_status: INT
+    medical_history: TEXT
+    allergy_history: TEXT
+    medication: TEXT
+    diagnosis: TEXT
+    check_date: DATE
+    doctor: VARCHAR(50)
+    notes: TEXT
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+table(health_data) {
+    primary_key(id): INT
+    foreign_key(elderly_id): INT
+    record_type: INT
+    systolic_pressure: INT
+    diastolic_pressure: INT
+    blood_pressure: VARCHAR(20)
+    heart_rate: INT
+    body_temperature: DECIMAL(4,2)
+    blood_sugar: DECIMAL(4,2)
+    blood_oxygen: INT
+    weight: DECIMAL(5,2)
+    record_content: VARCHAR(255)
+    health_note: TEXT
+    recorder_id: INT
+    recorder_name: VARCHAR(50)
+    record_time: DATETIME
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+table(health_report) {
+    primary_key(id): INT
+    foreign_key(elderly_id): INT
+    report_type: INT
+    report_title: VARCHAR(100)
+    check_date: DATE
+    summary: TEXT
+    suggestions: TEXT
+    foreign_key(doctor_id): INT
+    doctor_name: VARCHAR(50)
+    status: INT
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+' 费用相关表
+table(fee_type) {
+    primary_key(id): INT
+    type_code: VARCHAR(50)
+    type_name: VARCHAR(50)
+    description: VARCHAR(255)
+    status: INT
+    create_time: DATETIME
+}
+
+table(fee_standard) {
+    primary_key(id): INT
+    foreign_key(fee_type_id): INT
+    standard_name: VARCHAR(50)
+    amount: DECIMAL(10,2)
+    billing_cycle: VARCHAR(20)
+    description: VARCHAR(255)
+    status: INT
+    create_time: DATETIME
+}
+
+table(fee_bill) {
+    primary_key(id): INT
+    foreign_key(elderly_id): INT
+    bill_no: VARCHAR(50)
+    bill_month: VARCHAR(20)
+    total_amount: DECIMAL(10,2)
+    paid_amount: DECIMAL(10,2)
+    status: INT
+    due_date: DATE
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+table(fee_payment) {
+    primary_key(id): INT
+    foreign_key(bill_id): INT
+    foreign_key(elderly_id): INT
+    payment_no: VARCHAR(50)
+    amount: DECIMAL(10,2)
+    payment_method: VARCHAR(20)
+    status: INT
+    pay_time: DATETIME
+    create_time: DATETIME
+    deleted: INT
+}
+
+' 餐饮相关表
+table(meal_menu) {
+    primary_key(id): INT
+    name: VARCHAR(100)
+    description: TEXT
+    price: DECIMAL(10,2)
+    meal_type: INT
+    images: VARCHAR(500)
+    status: INT
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+table(meal_order) {
+    primary_key(id): INT
+    foreign_key(elderly_id): INT
+    order_no: VARCHAR(50)
+    total_amount: DECIMAL(10,2)
+    status: INT
+    order_date: DATE
+    delivery_time: DATETIME
+    remark: VARCHAR(255)
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+' 活动相关表
+table(activity) {
+    primary_key(id): INT
+    title: VARCHAR(100)
+    description: TEXT
+    location: VARCHAR(100)
+    start_time: DATETIME
+    end_time: DATETIME
+    max_participants: INT
+    current_participants: INT
+    status: INT
+    cover_image: VARCHAR(255)
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+table(activity_signup) {
+    primary_key(id): INT
+    foreign_key(activity_id): INT
+    foreign_key(elderly_id): INT
+    signup_time: DATETIME
+    status: INT
+    check_in_time: DATETIME
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+' 护理相关表
+table(care_booking) {
+    primary_key(id): INT
+    foreign_key(elderly_id): INT
+    foreign_key(nurse_id): INT
+    service_type: VARCHAR(50)
+    booking_date: DATE
+    start_time: TIME
+    end_time: TIME
+    amount: DECIMAL(10,2)
+    status: INT
+    remark: VARCHAR(255)
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+' 家属相关表
+table(family_member) {
+    primary_key(id): INT
+    foreign_key(elderly_id): INT
+    name: VARCHAR(50)
+    phone: VARCHAR(20)
+    relation: VARCHAR(20)
+    address: VARCHAR(255)
+    is_primary: INT
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+' 紧急联系人表
+table(emergency_contact) {
+    primary_key(id): INT
+    foreign_key(elderly_id): INT
+    name: VARCHAR(50)
+    phone: VARCHAR(20)
+    relation: VARCHAR(20)
+    is_primary: INT
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+' 房间服务表
+table(room_service_request) {
+    primary_key(id): INT
+    foreign_key(elderly_id): INT
+    foreign_key(room_id): INT
+    service_type: VARCHAR(50)
+    description: TEXT
+    status: INT
+    request_time: DATETIME
+    complete_time: DATETIME
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+' 公告表
+table(announcement) {
+    primary_key(id): INT
+    title: VARCHAR(100)
+    content: TEXT
+    type: INT
+    is_top: INT
+    status: INT
+    create_time: DATETIME
+    update_time: DATETIME
+    deleted: INT
+}
+
+' 关系定义
+user "1" -- "0..*" user_role : 拥有
+role "1" -- "0..*" user_role : 分配
+user "1" -- "0..1" room : 入住
+user "1" -- "0..*" health_record : 拥有
+user "1" -- "0..*" health_data : 拥有
+user "1" -- "0..*" health_report : 拥有
+user "1" -- "0..*" fee_bill : 产生
+user "1" -- "0..*" fee_payment : 支付
+user "1" -- "0..*" meal_order : 下单
+user "1" -- "0..*" activity_signup : 报名
+user "1" -- "0..*" care_booking : 预约
+user "1" -- "0..*" family_member : 关联
+user "1" -- "0..*" emergency_contact : 关联
+user "1" -- "0..*" room_service_request : 申请
+
+fee_type "1" -- "0..*" fee_standard : 定义
+fee_bill "1" -- "0..*" fee_payment : 支付
+activity "1" -- "0..*" activity_signup : 包含
+
+@enduml

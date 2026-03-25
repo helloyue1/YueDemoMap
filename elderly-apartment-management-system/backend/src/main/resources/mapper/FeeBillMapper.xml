@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.elderly.apartment.mapper.FeeBillMapper">
+
+    <resultMap id="BaseResultMap" type="com.elderly.apartment.entity.FeeBill">
+        <id column="id" property="id"/>
+        <result column="bill_no" property="billNo"/>
+        <result column="elderly_id" property="elderlyId"/>
+        <result column="bill_month" property="billMonth"/>
+        <result column="bill_start_date" property="billStartDate"/>
+        <result column="bill_end_date" property="billEndDate"/>
+        <result column="room_fee" property="roomFee"/>
+        <result column="care_fee" property="careFee"/>
+        <result column="meal_fee" property="mealFee"/>
+        <result column="medical_fee" property="medicalFee"/>
+        <result column="other_fee" property="otherFee"/>
+        <result column="total_amount" property="totalAmount"/>
+        <result column="discount_amount" property="discountAmount"/>
+        <result column="payable_amount" property="payableAmount"/>
+        <result column="paid_amount" property="paidAmount"/>
+        <result column="status" property="status"/>
+        <result column="due_date" property="dueDate"/>
+        <result column="paid_time" property="paidTime"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="elderly_name" property="elderlyName"/>
+        <result column="room_number" property="roomNumber"/>
+    </resultMap>
+
+    <select id="selectBillList" resultMap="BaseResultMap">
+        SELECT fb.*, u.real_name as elderly_name, u.room_number
+        FROM fee_bill fb
+        LEFT JOIN user u ON fb.elderly_id = u.id
+        <where>
+            <if test="elderlyName != null and elderlyName != ''">
+                AND u.real_name LIKE CONCAT('%', #{elderlyName}, '%')
+            </if>
+            <if test="billMonth != null and billMonth != ''">
+                AND fb.bill_month = #{billMonth}
+            </if>
+            <if test="status != null">
+                AND fb.status = #{status}
+            </if>
+        </where>
+        ORDER BY fb.create_time DESC
+    </select>
+
+    <select id="selectMonthlyStats" resultType="java.util.HashMap">
+        SELECT
+            bill_month as month,
+            SUM(payable_amount) as receivable,
+            SUM(paid_amount) as received
+        FROM fee_bill
+        WHERE bill_month &gt;= #{startMonth} AND bill_month &lt;= #{endMonth}
+        GROUP BY bill_month
+        ORDER BY bill_month
+    </select>
+
+</mapper>

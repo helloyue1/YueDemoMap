@@ -1,0 +1,26 @@
+-- 家属信息表
+CREATE TABLE IF NOT EXISTS `family_member` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    `elderly_id` BIGINT NOT NULL COMMENT '关联老人ID',
+    `name` VARCHAR(50) NOT NULL COMMENT '家属姓名',
+    `relationship` VARCHAR(20) NOT NULL COMMENT '与老人关系：spouse-配偶，child-子女，sibling-兄弟姐妹，other-其他',
+    `phone` VARCHAR(20) NOT NULL COMMENT '联系电话',
+    `id_card` VARCHAR(18) DEFAULT NULL COMMENT '身份证号',
+    `gender` TINYINT(1) DEFAULT NULL COMMENT '性别：0-女，1-男',
+    `address` VARCHAR(255) DEFAULT NULL COMMENT '家庭住址',
+    `work_unit` VARCHAR(100) DEFAULT NULL COMMENT '工作单位',
+    `is_emergency_contact` TINYINT(1) DEFAULT 0 COMMENT '是否紧急联系人：0-否，1-是',
+    `is_primary_contact` TINYINT(1) DEFAULT 0 COMMENT '是否主要联系人：0-否，1-是',
+    `remark` TEXT DEFAULT NULL COMMENT '备注',
+    `status` TINYINT(1) DEFAULT 1 COMMENT '状态：0-禁用，1-启用',
+    `create_time` DATETIME NOT NULL COMMENT '创建时间',
+    `update_time` DATETIME NOT NULL COMMENT '更新时间',
+    `deleted` TINYINT(1) DEFAULT 0 COMMENT '是否删除：0-否，1-是',
+    PRIMARY KEY (`id`),
+    KEY `idx_elderly_id` (`elderly_id`),
+    KEY `idx_phone` (`phone`),
+    KEY `idx_name` (`name`),
+    KEY `idx_relationship` (`relationship`),
+    KEY `idx_is_emergency` (`is_emergency_contact`),
+    KEY `idx_create_time` (`create_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='家属信息表';

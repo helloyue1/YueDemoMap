@@ -1,0 +1,52 @@
+@startuml 部署图
+
+skinparam backgroundColor #FEFEFE
+
+title 养老院公寓管理系统 - 部署架构图
+
+node "客户端" as Client {
+    component "管理端浏览器" as AdminBrowser
+    component "移动端APP" as MobileApp
+}
+
+node "服务器" as Server {
+    
+    node "Web服务器" as WebServer {
+        component "Nginx\n反向代理/负载均衡" as Nginx
+    }
+    
+    node "应用服务器" as AppServer {
+        component "Spring Boot应用\n端口: 8080" as SpringBoot
+    }
+    
+    node "文件服务器" as FileServer {
+        component "图片服务\n端口: 3000" as ImageServer
+        storage "文件存储" as FileStorage
+    }
+}
+
+node "数据服务器" as DataServer {
+    
+    node "数据库服务器" as DBServer {
+        database "MySQL 8.0\n端口: 3306" as MySQL
+    }
+    
+    node "缓存服务器" as CacheServer {
+        database "Redis\n端口: 6379" as Redis
+    }
+}
+
+' 连接关系
+AdminBrowser --> Nginx : HTTP/HTTPS
+MobileApp --> Nginx : HTTP/HTTPS
+
+Nginx --> SpringBoot : 转发API请求
+Nginx --> ImageServer : 转发图片请求
+
+SpringBoot --> MySQL : JDBC
+SpringBoot --> Redis : Jedis
+SpringBoot --> FileStorage : IO
+
+ImageServer --> FileStorage : 读取图片
+
+@enduml

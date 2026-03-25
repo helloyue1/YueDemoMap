@@ -1,0 +1,73 @@
+@startuml 图3-4家属用例图
+
+skinparam backgroundColor #FEFEFE
+skinparam usecase {
+    BackgroundColor<<核心业务>> #E3F2FD
+    BorderColor<<核心业务>> #1976D2
+}
+
+title 图 3-4 家属用例图
+
+left to right direction
+
+actor "家属" as Family
+
+rectangle "养老院公寓管理系统" {
+    
+    package "账户管理" {
+        usecase (UC01\n注册账号) as UC1
+        usecase (UC02\n登录系统) as UC2
+        usecase (UC03\n绑定老人) as UC3 <<核心业务>>
+        usecase (UC04\n修改个人信息) as UC4
+        usecase (UC05\n修改密码) as UC5
+    }
+    
+    package "老人关怀" {
+        usecase (UC06\n查看老人信息) as UC6
+        usecase (UC07\n查看健康档案) as UC7 <<核心业务>>
+        usecase (UC08\n查看体检报告) as UC8
+        usecase (UC09\n查看活动参与) as UC9
+        usecase (UC10\n查看护理记录) as UC10
+    }
+    
+    package "费用管理" {
+        usecase (UC11\n查看账单) as UC11
+        usecase (UC12\n在线缴费) as UC12 <<核心业务>>
+        usecase (UC13\n查看缴费记录) as UC13
+    }
+    
+    package "服务预约" {
+        usecase (UC14\n预约护理服务) as UC14
+        usecase (UC15\n预约探访) as UC15
+        usecase (UC16\n服务评价) as UC16
+    }
+    
+    package "信息查看" {
+        usecase (UC17\n查看公告) as UC17
+        usecase (UC18\n查看活动) as UC18
+        usecase (UC19\n接收通知) as UC19
+    }
+}
+
+' 家属用例关联
+Family --> UC1
+Family --> UC2
+Family --> UC3
+Family --> UC4
+Family --> UC5
+Family --> UC6
+Family --> UC7
+Family --> UC8
+Family --> UC9
+Family --> UC10
+Family --> UC11
+Family --> UC12
+Family --> UC13
+Family --> UC14
+Family --> UC15
+Family --> UC16
+Family --> UC17
+Family --> UC18
+Family --> UC19
+
+@enduml

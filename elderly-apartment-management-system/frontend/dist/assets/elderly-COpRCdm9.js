@@ -1,0 +1,1 @@
+import{D as t}from"./index-D9VfDkIB.js";function n(e){return t.get("/elderly",{params:e})}function u(e){return t.post("/elderly",e)}function d(e,r){return t.put(`/elderly/${e}`,r)}function c(e){return t.delete(`/elderly/${e}`)}function y(e){return t.post(`/elderly/${e}/check-out`)}function a(){return t.get("/elderly/staying")}export{y as a,a as b,u as c,c as d,n as g,d as u};
